@@ -14,5 +14,5 @@ RUN pipenv install --deploy --system
 ADD ./webapp/ /app/webapp
 WORKDIR /app/webapp
 
-CMD gunicorn --bind=0.0.0.0:8000 webapp.wsgi
+CMD gunicorn --bind=0.0.0.0:$PORT webapp.wsgi
 
