@@ -1,0 +1,28 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/postgres
+      - ENV=development
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./webapp:/app/webapp
+    container_name: webapp_web
+    depends_on:
+      - db
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379" 
+
+  db:
+    image: "postgres:alpine"
+    environment:  
+      - POSTGRES_PASSWORD=password
+   
